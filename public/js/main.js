@@ -36,7 +36,7 @@ $(document).ready(function () {
 		
 		$.ajax({
 			type: "POST",
-			url: "/task/scraper.php",
+			url: "/app/scraper.php",
 			data: formData,
 			dataType: "json",
 			encode: true,

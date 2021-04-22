@@ -17,9 +17,6 @@
 	
 	<body>
 		
-		
-		
-		
 		<div class="container">
 			<h1>Web Scraper</h1>
 			<p>Web application that scrapes<br/> and aggregates 10Web’s latest blog<br/> posts and shows them<br/> on the front page along with the top<br/> most used word per day</p>
