@@ -4,19 +4,17 @@
 	
 	// define('Base_URL', $_POST["base_url"]);
 	define('Base_URL', 'https://10web.io/blog/');
-	
+
+
+	$base_url = $_POST["base_url"];
 	$articles_count = (isset($_POST["count"])) ? intval($_POST["count"]) : 12;
 	$startDate = strtotime($_POST["startDate"]);
 	$endDate = strtotime($_POST["endDate"]);
-	
-	
-	
-	
-	$scrapedContent = new Scrape(Base_URL);  
-	
-	
-	//Getting pagination last item value
-	
+
+
+	//Getting pagination last item value for url list construction
+
+	$scrapedContent = new Scrape($base_url); 
 	$last_page = $scrapedContent->xPathObj->query('//a[@class="next page-numbers"]/preceding-sibling::a[1]');
 	$last_page_value = intval($last_page->item(0)->nodeValue);
 	
@@ -24,36 +22,31 @@
 	
 	$url_list = [];
 	
-	for ($i = 0; $i <= 2; $i++) {
-		$next_url = Base_URL . 'page/' . $i . '/?sort_by=recent';
+	for ($i = 0; $i <= $last_page_value; $i++) {
+		$next_url = Base_URL . 'page/' . $i . '/?sort_by=recent'; //10web blog URL structure
 		array_push($url_list, $next_url);
 	}
+
+
+	//Creating scraped data 
 	
 	$posts_data = [];
-	$finish = false;
+	$finish = false; // Checking if scrapping must finish
 	
 	
 	// For each unique results page URL
 	
 	foreach ($url_list as $url) {
 		
-		
-		
-		
-		$page_for_scrappig = new Scrape($url);		
-		
+		$page_for_scrappig = new Scrape($url);
 		
 		//Setting each post elements
 		
-		$posts = $page_for_scrappig->xPathObj->query('//div[contains(@class, "blog-post post")]');
+		$posts = $page_for_scrappig->xPathObj->query('//div[contains(@class, "blog-post post")]'); //Getting all posts DomeNodeList
 		
-		$posts_count = $posts->length; 
+		$posts_count = $posts->length; //Post count for each page
 		
 		// $posts_count = (isset($articles_count)) ? $articles_count : $posts->length;
-		
-		
-		
-		
 		
 		$post_names = $page_for_scrappig->xPathObj->query('//div[contains(@class, "blog-post post")]/div[@class="blog-post-content"]/h2[@class="blog-post-title entry-title section-title"]/a');
 		$post_author = $page_for_scrappig->xPathObj->query('//div[contains(@class, "blog-post post")]/div[@class="blog-post-content"]/div[@class="blog-post-footer clear"]/div[@class="post_info_contnet clear"]/div[@class="post-author-date"]/a');
@@ -69,17 +62,10 @@
 			
 			$postDate = strtotime($post_date->item($i)->nodeValue);
 			
-			
-			
-			
-			if (count($posts_data) === $articles_count) {$finish = true; break;} 
-			
-			
-			
-			else if ($postDate >= $startDate && $postDate <= $endDate) {
-				
-				// strtotime($post_date->item($i)->nodeValue) . "<br/>";
-				
+			if (count($posts_data) === $articles_count) {
+				$finish = true; 
+				break;
+			}  else if ($postDate >= $startDate && $postDate <= $endDate) {
 				
 				
 				$post_data = array_merge($post_data, array(
@@ -99,8 +85,6 @@
 			
 			array_push($posts_data, $post_data);
 			
-			
-			
 		}
 		
 		if ($finish) {break;  }
@@ -111,17 +95,9 @@
 		
 		// $page_for_scrappig = NULL;
 		
-		
-		
 	}
 	
 	
-	
-	
 	echo json_encode($posts_data);
-	
-	
-	
-	
 	
 ?>
