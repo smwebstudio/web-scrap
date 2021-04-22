@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
-    'name' => 'mazraara/random-password',
+    'reference' => '5cf3abf762b3b96280ebc3268d6eb7938cabf5d5',
+    'name' => 'smweb/web-scrapper',
   ),
   'versions' => 
   array (
-    'mazraara/random-password' => 
+    'smweb/web-scrapper' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '5cf3abf762b3b96280ebc3268d6eb7938cabf5d5',
     ),
   ),
 );
