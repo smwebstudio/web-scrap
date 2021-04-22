@@ -16,7 +16,7 @@ author VARCHAR(30) NOT NULL,
 excerpt VARCHAR(150) NOT NULL,
 image_url VARCHAR(150),
 publish_date DATE,
-scraped_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+scraped_date DATE 
 );";
 
 // query to create most used words table
