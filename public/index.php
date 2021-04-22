@@ -23,7 +23,7 @@
 		<div class="container">
 			<h1>Web Scraper</h1>
 			<p>Web application that scrapes<br/> and aggregates 10Web’s latest blog<br/> posts and shows them<br/> on the front page along with the top<br/> most used word per day</p>
-			<form id="Scraper" action="/action_page.php">
+			<form id="Scraper" action="">
 				<div class="row">
 					<div class="col-25">
 						<label for="base_url">URL</label>
@@ -72,9 +72,9 @@
 			</div>
 		</div>
 		
-		<div id="loading" class="loading"><img src="img/preloader.gif" /></div>
+		<div id="loading" class="loading"><img src="public/img/preloader.gif" /></div>
 		
 		
-		<script src="js/main.js"></script>
+		<script src="public/js/main.js"></script>
 	</body>
 </html>
