@@ -18,6 +18,9 @@
 	<body>
 		
 		<div class="container">
+
+			<div class="row">
+
 			<h1>Web Scraper</h1>
 			<p>Web application that scrapes<br/> and aggregates 10Web’s latest blog<br/> posts and shows them<br/> on the front page along with the top<br/> most used word per day</p>
 			<form id="Scraper" action="">
@@ -42,16 +45,20 @@
 						<label for="date_range">Date range</label>
 					</div>
 					<div class="col-75">						
-						<input type="text" id="date_range" name="date_range" value="04/01/2021 - 04/30/2021" />
+						<input type="text" id="date_range" name="date_range" value="" />
 					</div>
 				</div>
 				<div class="row">
 					<input type="submit" value="Submit">
 				</div>
 			</form>
-			
+			</div>
+
+			<div class="row">
+
 			<div id="ScrapedData" class="scraped-data">
 				<span class="scrap-info"></span>
+				<button id="SaveData" class="btn btn-success">Save data</button>
 				<table>
 					<thead>
 						<tr>
@@ -66,6 +73,8 @@
 					<tbody>
 					</tbody>
 				</table>
+			</div>
+
 			</div>
 		</div>
 		

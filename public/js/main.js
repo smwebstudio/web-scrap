@@ -13,20 +13,11 @@ $(document).ready(function () {
 		endDate = end.format('YYYY-MM-DD');
 	});
 	
-	
-	$('#loadingDiv')
-    .hide()  // Hide it initially
-    .ajaxStart(function() {
-        $(this).show();
-	})
-    .ajaxStop(function() {
-        $(this).hide();
-	})
-	;
-	
-	
+	let posts_data;
 	
 	$("#Scraper").submit(function (event) {
+		event.preventDefault();
+
 		let formData = {
 			base_url: $("#base_url").val(),
 			count: $("#articles_count").val(),
@@ -47,15 +38,13 @@ $(document).ready(function () {
 			success: function(data) {
 				console.log(data);
 				console.log(data.length);
+
+				posts_data = data;
 				
 				$("#ScrapedData").show();
 				$("#ScrapedData table tbody").html('');
 				$("#ScrapedData .scrap-info").html('');
-				
-				
 				$("#ScrapedData .scrap-info").append('Articles scraped - ' + data.length);
-				
-				
 				
 				$.each(data, function(i) {
 					$("#ScrapedData table tbody" ).append(
@@ -70,10 +59,46 @@ $(document).ready(function () {
 				});
 				
 				$("#loading").hide();
+
+				
 			}
 		});
 		
+		
+	});
+
+
+	$("#SaveData").click(function (event) {
 		event.preventDefault();
+		
+		
+		console.log(posts_data);
+
+		let postsData = {
+			data: posts_data
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: "/app/save_data.php",
+			data: postsData,
+			dataType: "json",
+			encode: true,
+			beforeSend: function() {
+				$("#loading").show();
+				
+			},
+			success: function(data) {
+				console.log(data);
+				console.log(data.length);
+
+				
+				$("#loading").hide();
+
+				
+			}
+		});
+		
 	});
 	
 	

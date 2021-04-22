@@ -12,9 +12,10 @@ if ($conn->connect_error) {
 // query to create posts table
 $sql = "CREATE TABLE posts (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-author VARCHAR(30) NOT NULL,
-excerpt VARCHAR(150) NOT NULL,
-image_url VARCHAR(150),
+author VARCHAR(100) NOT NULL,
+title VARCHAR(300) NOT NULL,
+excerpt VARCHAR(1500) NOT NULL,
+image_url VARCHAR(1500),
 publish_date DATE,
 scraped_date DATE 
 );";
