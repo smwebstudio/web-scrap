@@ -1,0 +1,16 @@
+{
+    "name": "smweb/web-scrapper",
+    "description": "Web scrapper for 10web's blog",
+    "type": "app",
+    "require": {
+      "php": ">=7.1.0"
+    },
+    "license": "proprietary",
+    "authors": [
+      {
+        "name": "Suren Martirosyan",
+        "email": "sm.programming@gmail.com"
+      }
+    ],
+    "minimum-stability": "dev"
+  } 
