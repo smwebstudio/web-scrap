@@ -15,6 +15,7 @@ Some of the feature include:
     * You can use composer (recommended) to create the project using `composer create-project smweb/web-scrapper:dev-master myproject`   (rename {myproject} to any)
     * or download the project in zip format [here](https://github.com/smwebstudio/web-scrap/archive/refs/heads/master.zip) and extract it to your http server.                                                          	
 * In the root folder, run composer install
+* In the root folder, edit db_config.php for proper DB credentials
 * After dependencies are installed, run `php -S localhost:800` to start a server at the root folder.
 
 
