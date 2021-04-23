@@ -100,6 +100,31 @@ $(document).ready(function () {
 		});
 		
 	});
+
+
+	function SearchData(query){
+		$.ajax({
+		  url : "app/search.php",
+		  type: "POST",
+		  chache :false,
+		  data:{query:query},
+		  success:function(data){
+			$("#search_result").html(data).css("display", "flex");
+		  }
+		});  
+	  };
+
+	  $("#search").keyup(function(){
+		var search = $(this).val();
+
+		console.log(search);
+		console.log(search.length);
+		if (search.length >=3) { // Min 3 symbols to search proper queries, and not to load server too much
+			SearchData(search);
+		}else{
+			$("#search_result").hide();
+		}
+	  });
 	
 	
 	
