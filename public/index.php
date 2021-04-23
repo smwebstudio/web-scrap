@@ -1,14 +1,11 @@
 <?php
 require 'app/show_data.php';
 ?>
-
 <!doctype html>
-
 <html lang="en">
 
 <head>
 	<meta charset="utf-8">
-
 	<title>Web Scraper</title>
 	<meta name="description" content="Web Scraper">
 	<meta name="author" content="Web Scraper">
@@ -23,8 +20,6 @@ require 'app/show_data.php';
 <body>
 
 	<div class="container">
-
-
 		<?php if (!isset($data)) : ?>
 			<div class="row">
 				<div class="col-md-12 col-xs-12">
@@ -35,15 +30,13 @@ require 'app/show_data.php';
 			</div>
 		<?php else : ?>
 			<div class="row">
-				
 				<div class="col-md-6 form-group">
 					<input type="text" id="search" class="form-control" autocomplete="off" placeholder="Search in excerpt (min 3 symbols)..">
 				</div>
-
 				<div class="col-md-6 form-group">
-				<input type="text" id="date_range" name="date_range" value="" />
+					<input type="text" id="date_range" name="date_range" value="" />
 				</div>
-				
+
 			</div>
 
 			<div id="search_result" class="row">
@@ -51,9 +44,9 @@ require 'app/show_data.php';
 			</div>
 
 			<div class="row">
-			<div class="col-md-12 col-xs-12">
-			<h1>Scraped posts</h1>
-			</div>
+				<div class="col-md-12 col-xs-12">
+					<h1>Scraped posts</h1>
+				</div>
 				<?php foreach ($data as $post) : ?>
 
 					<div class="col-md-6 col-xs-12">
