@@ -1,6 +1,7 @@
 ## A PHP/JS web scraper for 10web's blog
-Simple web application that scrapes and aggregates 10Web’s latest blog posts and shows them on the front page. Must be changed to CLI app
+Simple CLI web application that scrapes and aggregates 10Web’s latest blog posts and shows them on the front page. 
 
+Please notice, that the app is in dev mode. Sorry for any trouble caused. Please accept my sincere apologies.
 
 Some of the feature include:
 * Dependencies managed through composer
