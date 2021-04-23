@@ -17,6 +17,11 @@ Some of the feature include:
 * In the root folder, run composer install
 * In the root folder, edit db_config.php for proper DB credentials
 * After dependencies are installed, run `php -S localhost:800` to start a server at the root folder.
+* To scrap posts run command `php app/scraper_cli.php --count "{count}" --startDate "{startDate}" --endDate "{endDate}" ` , where
+    * {count} is articles count to scrap, integer
+    * {startDate} is article's published min date
+    * {endDate} is article's published max date
+    * Date format: mm/dd/yyyy (example: 04/23/2021 )
 
 
 
