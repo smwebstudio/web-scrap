@@ -36,8 +36,12 @@ require 'app/show_data.php';
 		<?php else : ?>
 			<div class="row">
 				
-				<div class="col-md-12 form-group">
-					<input type="text" id="search" class="form-control" autocomplete="off" placeholder="Search in excerpt (min 3 symbols).."><br>
+				<div class="col-md-6 form-group">
+					<input type="text" id="search" class="form-control" autocomplete="off" placeholder="Search in excerpt (min 3 symbols)..">
+				</div>
+
+				<div class="col-md-6 form-group">
+				<input type="text" id="date_range" name="date_range" value="" />
 				</div>
 				
 			</div>

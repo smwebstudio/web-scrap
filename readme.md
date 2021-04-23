@@ -17,13 +17,13 @@ Some of the feature include:
     * or download the project in zip format [here](https://github.com/smwebstudio/web-scrap/archive/refs/heads/master.zip) and extract it to your http server.                                                          	
 * In the root folder, run composer install
 * In the app/ folder, edit db_config.php for proper DB credentials
-* After DB config edited, run `php app/create_tables.php` to create DB tables
-* To scrap posts and save to DB run command `php app/scraper_cli.php --count "{count}" --startDate "{startDate}" --endDate "{endDate}" ` , where
+* After DB config edited, run command in the root folder `php app/create_tables.php` to create DB tables
+* To scrap posts and save to DB run command in the root folder `php app/scraper_cli.php --count "{count}" --startDate "{startDate}" --endDate "{endDate}" ` , where
     * {count} is articles count to scrap, integer // 10 by default
     * {startDate} is article's published min date
     * {endDate} is article's published max date
     * Date format: mm/dd/yyyy (example: 04/23/2021 )
-* To view frontpage with scraped data, run `php -S localhost:800` to start a server at the root folder. Frontpage can be accessed at `localhost:800` .
+* To view frontpage with scraped data, run command in the root folder `php -S localhost:800` to start a server at the root folder. Frontpage can be accessed at `localhost:800` .
 
 
 

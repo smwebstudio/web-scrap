@@ -6,7 +6,7 @@ $(document).ready(function () {
 	
 	$('#date_range').daterangepicker({
 		opens: 'center',
-		drops: 'up',
+		drops: 'down',
 	},
 	function(start, end, label) {		
 		startDate = start.format('YYYY-MM-DD');
@@ -102,12 +102,12 @@ $(document).ready(function () {
 	});
 
 
-	function SearchData(query){
+	function SearchData(query,startDate,endDate){
 		$.ajax({
 		  url : "app/search.php",
 		  type: "POST",
 		  chache :false,
-		  data:{query:query},
+		  data:{query:query, startDate:startDate, endDate:endDate},
 		  success:function(data){
 			$("#search_result").html(data).css("display", "flex");
 		  }
@@ -115,15 +115,22 @@ $(document).ready(function () {
 	  };
 
 	  $("#search").keyup(function(){
-		var search = $(this).val();
-
-		console.log(search);
-		console.log(search.length);
+		let search = $(this).val();
 		if (search.length >=3) { // Min 3 symbols to search proper queries, and not to load server too much
-			SearchData(search);
+			SearchData(search,'','');
 		}else{
 			$("#search_result").hide();
 		}
+	  });
+
+
+	  $('#date_range').on('apply.daterangepicker', function(ev, picker) {
+		  let startDate = picker.startDate.format('YYYY-MM-DD');
+		  let endDate = picker.endDate.format('YYYY-MM-DD');
+
+		SearchData(50,startDate, endDate); // TODO: change query checking :(
+		
+
 	  });
 	
 	
