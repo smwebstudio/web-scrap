@@ -51,6 +51,9 @@ require 'app/show_data.php';
 			</div>
 
 			<div class="row">
+			<div class="col-md-12 col-xs-12">
+			<h1>Scraped posts</h1>
+			</div>
 				<?php foreach ($data as $post) : ?>
 
 					<div class="col-md-6 col-xs-12">
