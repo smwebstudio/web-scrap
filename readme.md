@@ -7,8 +7,9 @@ Some of the feature include:
 * Dependencies managed through composer
 * Options for date range and article limit
 ### Dependencies
-- PHP >= 7.1
 - PHP web server
+- PHP >= 7.1
+- MySQL >= 8.0
 
 #### How to quickly setup
 * Ensure you have [composer](www.getcomposer.org) installed 
