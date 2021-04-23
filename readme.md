@@ -18,7 +18,7 @@ Some of the feature include:
 * In the app/ folder, edit db_config.php for proper DB credentials
 * After DB config edited, run `php app/create_tables.php` to create DB tables
 * After dependencies are installed, run `php -S localhost:800` to start a server at the root folder.
-* To scrap posts run command `php app/scraper_cli.php --count "{count}" --startDate "{startDate}" --endDate "{endDate}" ` , where
+* To scrap posts and save to DB run command `php app/scraper_cli.php --count "{count}" --startDate "{startDate}" --endDate "{endDate}" ` , where
     * {count} is articles count to scrap, integer // 10 by default
     * {startDate} is article's published min date
     * {endDate} is article's published max date

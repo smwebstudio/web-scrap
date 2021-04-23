@@ -116,10 +116,11 @@
 	
   
 echo json_encode($posts_data, JSON_PRETTY_PRINT);
-
 echo "\r\n ----------- \r\n ";
 echo "Posts scraped: ".count($posts_data);
 echo "\r\n ----------- \r\n ";
+
+
 // Create connection
 $conn = new mysqli(DB_Server, DB_User, DB_Pass, DB_Name);
 // Check connection
@@ -127,7 +128,7 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-// query to save scraped posts 
+// Creating mysqli query to save scraped posts 
 
 $posts = [];
 
