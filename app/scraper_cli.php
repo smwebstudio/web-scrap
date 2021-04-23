@@ -1,17 +1,24 @@
 <?php
-	
 	require_once('scrape.class.php');
 
-	// define('Base_URL', $_POST["base_url"]);
-	define('Base_URL', 'https://10web.io/blog/');
+    $shortopts  = "";
 
+    $scraper_options  = array(
+        "count:",     // Required value
+        "startDate:",    // Required value
+        "endDate:",        // Required value
+    );
+    
+    $options = getopt(  $shortopts , $scraper_options);
+    
+ 
+	
+	$base_url = 'https://10web.io/blog/';
+	$articles_count = (isset($options["count"])) ? intval($options["count"]) : 12;
+	$startDate = strtotime($options["startDate"]);
+	$endDate = strtotime($options["endDate"]);
 
-	$base_url = $_POST["base_url"];
-	$articles_count = (isset($_POST["count"])) ? intval($_POST["count"]) : 12;
-	$startDate = strtotime($_POST["startDate"]);
-	$endDate = strtotime($_POST["endDate"]);
-
-
+    
 	//Getting pagination last item value for url list construction
 
 	$scrapedContent = new Scrape($base_url); 
@@ -23,9 +30,11 @@
 	$url_list = [];
 	
 	for ($i = 0; $i <= $last_page_value; $i++) {
-		$next_url = Base_URL . 'page/' . $i . '/?sort_by=recent'; //10web blog URL structure
+		$next_url = $base_url . 'page/' . $i . '/?sort_by=recent'; //10web blog URL structure
 		array_push($url_list, $next_url);
 	}
+
+    
 
 
 	//Creating scraped data 
@@ -45,6 +54,8 @@
 		$posts = $page_for_scrappig->xPathObj->query('//div[contains(@class, "blog-post post")]'); //Getting all posts DomeNodeList
 		
 		$posts_count = $posts->length; //Post count for each page
+
+        
 		
 		// $posts_count = (isset($articles_count)) ? $articles_count : $posts->length;
 		
@@ -61,6 +72,8 @@
 			$post_data = []; 
 			
 			$postDate = strtotime($post_date->item($i)->nodeValue);
+
+            
 			
 			if (count($posts_data) === $articles_count) {
 				$finish = true; 
@@ -77,6 +90,8 @@
 				"date_scraped"=>date("M d, Y"),
 				
 				));
+
+                
 				
 				
 			}
@@ -97,7 +112,10 @@
 		
 	}
 	
+    
 	
-	echo json_encode($posts_data);
+	echo json_encode($posts_data, JSON_PRETTY_PRINT);
+
+    
 	
 ?>
