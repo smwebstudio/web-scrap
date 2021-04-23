@@ -1,6 +1,6 @@
 <?php
 
-require '../db_config.php';
+require 'db_config.php';
 
 // Create connection
 $conn = new mysqli(DB_Server, DB_User, DB_Pass, DB_Name);
