@@ -17,7 +17,8 @@ title VARCHAR(300) NOT NULL,
 excerpt VARCHAR(1500) NOT NULL,
 image_url VARCHAR(1500),
 publish_date DATE,
-scraped_date DATE 
+scraped_date DATE,
+post_hash VARCHAR(150) NOT NULL UNIQUE
 );";
 
 // query to create most used words table

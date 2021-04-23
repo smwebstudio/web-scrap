@@ -1,12 +1,10 @@
 <?php
 
-require '../db_config.php';
+require 'db_config.php';
 
 //Get data from POST
 
 $posts_data = $_POST["data"];
-
-
 
 // Create connection
 $conn = new mysqli(DB_Server, DB_User, DB_Pass, DB_Name);
@@ -17,8 +15,6 @@ if ($conn->connect_error) {
 
 // query to save scraped posts 
 
-
-
 $posts = [];
 
 foreach ($posts_data as $post) {
@@ -26,14 +22,10 @@ foreach ($posts_data as $post) {
     $author = $conn -> real_escape_string($post['author']);
     $excerpt = $conn -> real_escape_string($post['excerpt']);
     $image_url = $conn -> real_escape_string($post['post_image']);
-
     $publish_date = date("Y-m-d", strtotime($post['date']));
     $publish_date = $conn -> real_escape_string($publish_date);
-
     $scraped_date = date("Y-m-d", strtotime($post['date_scraped']));
     $scraped_date = $conn -> real_escape_string($scraped_date);
-
-
 
     $values[] = "('$author', '$title', '$excerpt', '$image_url', '$publish_date', '$scraped_date' )"; // quoted value, to escape sql injection 
 }

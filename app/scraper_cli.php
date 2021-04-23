@@ -1,24 +1,32 @@
 <?php
-	require_once('scrape.class.php');
+	require 'scrape.class.php';
+    require 'db_config.php';
+
+    //Get scrapping options from CLI
 
     $shortopts  = "";
 
     $scraper_options  = array(
-        "count:",     // Required value
-        "startDate:",    // Required value
-        "endDate:",        // Required value
+        "count:",     
+        "startDate:",   
+        "endDate:",  
     );
     
     $options = getopt(  $shortopts , $scraper_options);
-    
- 
+
+    var_dump($options["count"]);
+    var_dump($options["startDate"]);
+    var_dump($options["endDate"]);
 	
 	$base_url = 'https://10web.io/blog/';
-	$articles_count = (isset($options["count"])) ? intval($options["count"]) : 12;
-	$startDate = strtotime($options["startDate"]);
-	$endDate = strtotime($options["endDate"]);
+	$articles_count = (isset($options["count"])) ? intval($options["count"]) : 10;
+	$startDate = (isset($options["startDate"])) ? strtotime($options["startDate"]) : strtotime('01/01/2000');
+	$endDate = (isset($options["endDate"])) ? strtotime($options["endDate"]) : strtotime(date("m/d/Y"));
 
-    
+
+    var_dump($articles_count);
+    var_dump($startDate);
+    var_dump($endDate);
 	//Getting pagination last item value for url list construction
 
 	$scrapedContent = new Scrape($base_url); 
@@ -33,9 +41,6 @@
 		$next_url = $base_url . 'page/' . $i . '/?sort_by=recent'; //10web blog URL structure
 		array_push($url_list, $next_url);
 	}
-
-    
-
 
 	//Creating scraped data 
 	
@@ -88,11 +93,10 @@
 				"excerpt"=>$post_excerpt->item($i)->nodeValue,
 				"post_image"=>$post_image->item($i)->getAttribute('data-src'),
 				"date_scraped"=>date("M d, Y"),
-				
-				));
-
-                
-				
+				"post_hash"=>sha1($post_excerpt->item($i)->nodeValue) //For further comparing stored posts
+				)
+            
+            );
 				
 			}
 			
@@ -104,18 +108,57 @@
 		
 		if ($finish) {break;  }
 		
-		
-		
 		sleep(0.5);  // Maybe DDoS protection? Sending 1 request per second
 		
 		// $page_for_scrappig = NULL;
 		
 	}
 	
-    
-	
-	echo json_encode($posts_data, JSON_PRETTY_PRINT);
+  
+echo json_encode($posts_data, JSON_PRETTY_PRINT);
 
-    
+echo "\r\n ----------- \r\n ";
+echo "Posts scraped: ".count($posts_data);
+echo "\r\n ----------- \r\n ";
+// Create connection
+$conn = new mysqli(DB_Server, DB_User, DB_Pass, DB_Name);
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+
+// query to save scraped posts 
+
+$posts = [];
+
+foreach ($posts_data as $post) {
+    $title = $conn -> real_escape_string($post['title']);
+    $author = $conn -> real_escape_string($post['author']);
+    $excerpt = $conn -> real_escape_string($post['excerpt']);
+    $image_url = $conn -> real_escape_string($post['post_image']); // TODO: save imgs to own server 
+    $publish_date = date("Y-m-d", strtotime($post['date']));
+    $publish_date = $conn -> real_escape_string($publish_date);
+    $scraped_date = date("Y-m-d", strtotime($post['date_scraped']));
+    $scraped_date = $conn -> real_escape_string($scraped_date);
+	$post_hash = $conn -> real_escape_string($post['post_hash']); // TODO: compare whole hash instead of only post_excerpt
+
+    $values[] = "('$author', '$title', '$excerpt', '$image_url', '$publish_date', '$scraped_date', '$post_hash' )"; // quoted value, to escape sql injection 
+}
+
+$query_values = implode(',', $values);
+
+$sql = "INSERT IGNORE INTO posts (author, title, excerpt, image_url, publish_date, scraped_date, post_hash) VALUES $query_values"; //Unique hash values ignored 
+
+if ($conn->multi_query($sql) === TRUE) {
+	echo "\r\n ----------- \r\n ";
+    echo "Posts saved to DB";
+	echo "\r\n ----------- \r\n ";
+  } else {
+	echo "\r\n ----------- \r\n ";
+    echo "Error: " . $sql . "<br>" . $conn->error;
+	echo "\r\n ----------- \r\n ";
+  }
+  
+  $conn->close();
 	
 ?>
