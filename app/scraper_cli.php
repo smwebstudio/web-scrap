@@ -14,19 +14,11 @@
     
     $options = getopt(  $shortopts , $scraper_options);
 
-    var_dump($options["count"]);
-    var_dump($options["startDate"]);
-    var_dump($options["endDate"]);
-	
 	$base_url = 'https://10web.io/blog/';
 	$articles_count = (isset($options["count"])) ? intval($options["count"]) : 10;
 	$startDate = (isset($options["startDate"])) ? strtotime($options["startDate"]) : strtotime('01/01/2000');
 	$endDate = (isset($options["endDate"])) ? strtotime($options["endDate"]) : strtotime(date("m/d/Y"));
 
-
-    var_dump($articles_count);
-    var_dump($startDate);
-    var_dump($endDate);
 	//Getting pagination last item value for url list construction
 
 	$scrapedContent = new Scrape($base_url); 
@@ -70,9 +62,7 @@
 		$post_excerpt = $page_for_scrappig->xPathObj->query('//div[contains(@class, "blog-post post")]/div[@class="blog-post-content"]/div[@class="entry-summary"]');
 		$post_image = $page_for_scrappig->xPathObj->query('//div[contains(@class, "blog-post post")]/div[@class="blog-img-container img_container"]/a/img');
 		
-		// echo "Post count - ".count($posts_data)."<br/>";
-		// echo "Post must count - ".$articles_count."<br/>";
-		
+
 		for ($i = 0; $i < $posts_count; $i++) {	
 			$post_data = []; 
 			
@@ -108,7 +98,7 @@
 		
 		if ($finish) {break;  }
 		
-		sleep(0.5);  // Maybe DDoS protection? Sending 1 request per second
+		usleep(300000);  // Maybe DDoS protection? Sending 1 request per  ~0.3 second
 		
 		// $page_for_scrappig = NULL;
 		
